@@ -166,24 +166,28 @@ class VerticalPhoneDirectoryScreen extends StatelessWidget {
                         ),
                         Text(
                           "${currentItem['post']}"
-                          '( ${currentItem['code']})',
+                          '[ ${currentItem['code']}]',
                           textAlign: TextAlign.center,
                         ),
                         DetailsCardModel(
+                          isEmail: true,
                           icon: Icons.email_rounded,
                           info: 'Email:' "${currentItem['email']}",
                         ),
                         DetailsCardModel(
+                          isEmail: false,
                           icon: Icons.phone,
-                          info: 'Office Phone No:'
+                          info: 'Landline:'
                               "${currentItem['officePhoneNo']}",
                         ),
                         DetailsCardModel(
+                          isEmail: false,
                           icon: Icons.phone,
                           info: 'Home Phone No:'
                               "${currentItem['homePhoneNo']}",
                         ),
                         DetailsCardModel(
+                          isEmail: false,
                           icon: Icons.home_filled,
                           info: 'Office:' "${currentItem['office']}",
                         ),
@@ -222,9 +226,11 @@ class DetailsCardModel extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.info,
+    required this.isEmail,
   }) : super(key: key);
   IconData icon;
   String info;
+  bool isEmail;
 
   @override
   Widget build(BuildContext context) {
@@ -248,12 +254,30 @@ class DetailsCardModel extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Text(
-              info,
-              style: const TextStyle(
-                color: Colors.white,
-              ),
-            ),
+
+            // using ternary operator to identify the email info
+
+            isEmail
+                ? InkWell(
+                    onTap: () {},
+                    child: Container(
+                      height: 30,
+                      width: 200,
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Text(
+                        info,
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                : Text(
+                    info,
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
           ],
         ),
       ),
